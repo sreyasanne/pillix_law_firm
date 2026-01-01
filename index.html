@@ -1404,6 +1404,7 @@
             teamPage.style.display = 'none';
             footer.style.display = 'block';
             window.scrollTo(0, 0);
+            history.pushState({page: 'home'}, '', '#home');
         }
 
         function showServicesPage() {
@@ -1416,6 +1417,7 @@
             teamPage.style.display = 'none';
             footer.style.display = 'block';
             window.scrollTo(0, 0);
+            history.pushState({page: 'services'}, '', '#our-services');
         }
 
         function showContactPage() {
@@ -1428,6 +1430,7 @@
             teamPage.style.display = 'none';
             footer.style.display = 'block';
             window.scrollTo(0, 0);
+            history.pushState({page: 'contact'}, '', '#contact-us');
         }
 
         function showCareersPage() {
@@ -1440,6 +1443,7 @@
             teamPage.style.display = 'none';
             footer.style.display = 'block';
             window.scrollTo(0, 0);
+            history.pushState({page: 'careers'}, '', '#careers');
         }
 
         function showTeamPage() {
@@ -1452,7 +1456,75 @@
             teamPage.style.display = 'block';
             footer.style.display = 'block';
             window.scrollTo(0, 0);
+            history.pushState({page: 'team'}, '', '#our-team');
         }
+
+        function navigateToPage(page) {
+            switch(page) {
+                case 'services':
+                    content.style.display = 'none';
+                    aboutSection.style.display = 'none';
+                    servicesPreview.style.display = 'none';
+                    servicesPage.style.display = 'block';
+                    contactPage.style.display = 'none';
+                    careersPage.style.display = 'none';
+                    teamPage.style.display = 'none';
+                    footer.style.display = 'block';
+                    break;
+                case 'contact':
+                    content.style.display = 'none';
+                    aboutSection.style.display = 'none';
+                    servicesPreview.style.display = 'none';
+                    servicesPage.style.display = 'none';
+                    contactPage.style.display = 'block';
+                    careersPage.style.display = 'none';
+                    teamPage.style.display = 'none';
+                    footer.style.display = 'block';
+                    break;
+                case 'careers':
+                    content.style.display = 'none';
+                    aboutSection.style.display = 'none';
+                    servicesPreview.style.display = 'none';
+                    servicesPage.style.display = 'none';
+                    contactPage.style.display = 'none';
+                    careersPage.style.display = 'block';
+                    teamPage.style.display = 'none';
+                    footer.style.display = 'block';
+                    break;
+                case 'team':
+                    content.style.display = 'none';
+                    aboutSection.style.display = 'none';
+                    servicesPreview.style.display = 'none';
+                    servicesPage.style.display = 'none';
+                    contactPage.style.display = 'none';
+                    careersPage.style.display = 'none';
+                    teamPage.style.display = 'block';
+                    footer.style.display = 'block';
+                    break;
+                default:
+                    content.style.display = 'flex';
+                    aboutSection.style.display = 'block';
+                    servicesPreview.style.display = 'block';
+                    servicesPage.style.display = 'none';
+                    contactPage.style.display = 'none';
+                    careersPage.style.display = 'none';
+                    teamPage.style.display = 'none';
+                    footer.style.display = 'block';
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.page) {
+                navigateToPage(event.state.page);
+            } else {
+                navigateToPage('home');
+            }
+        });
+
+        // Set initial state
+        history.replaceState({page: 'home'}, '', '#home');
 
         function showServicesSection(sectionId) {
             content.style.display = 'none';
