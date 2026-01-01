@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pillix Law Firm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 30% 30%, #666 0%, #000 50%),
+                        radial-gradient(ellipse at 70% 70%, #555 0%, #000 50%),
+                        radial-gradient(ellipse at 50% 50%, #444 0%, #000 60%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #000 0%, #333 50%, #000 100%);
+            background-size: 200% 100%;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title, .logo-subtitle {
+            background: linear-gradient(180deg, #f0f0f0 0%, #c0c0c0 50%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.7;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.95);
+                width: 100%;
+                text-align: center;
+                transition: left 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 100px 2rem 4rem;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-headline {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subheadline {
+            font-size: 1.25rem;
+            color: #d0d0d0;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+            color: #000;
+            border: none;
+        }
+
+        .cta-primary:hover {
+            background: linear-gradient(135deg, #d0d0d0 0%, #b0b0b0 100%);
+            transform: translateY(-2px);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #c0c0c0;
+        }
+
+        .cta-secondary:hover {
+            background: rgba(192, 192, 192, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .about-section {
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(20,20,20,1) 100%);
+            padding: 5rem 2rem;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(192, 192, 192, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            color: #c49c4d;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .about-card p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .services-section {
+            background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%);
+            padding: 5rem 2rem;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .services-title {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .services-intro {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            transition: all 0.3s ease;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(196, 156, 77, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #c49c4d;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: #b0b0b0;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+            border: 2px solid #c49c4d;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .view-all-btn:hover {
+            background: rgba(196, 156, 77, 0.1);
+            border-color: #d4af37;
+            transform: translateY(-2px);
+        }
+
+        .services-page {
+            background: #000;
+            min-height: 100vh;
+            padding: 120px 2rem 4rem;
+            display: none;
+        }
+
+        .contact-page {
+            background: radial-gradient(ellipse at 30% 30%, #666 0%, #000 50%),
+                        radial-gradient(ellipse at 70% 70%, #555 0%, #000 50%),
+                        radial-gradient(ellipse at 50% 50%, #444 0%, #000 60%);
+            min-height: 100vh;
+            padding: 120px 2rem 4rem;
+            display: none;
+        }
+
+        .careers-page {
+            background: radial-gradient(ellipse at 30% 30%, #666 0%, #000 50%),
+                        radial-gradient(ellipse at 70% 70%, #555 0%, #000 50%),
+                        radial-gradient(ellipse at 50% 50%, #444 0%, #000 60%);
+            min-height: 100vh;
+            padding: 120px 2rem 4rem;
+            display: none;
+        }
+
+        .team-page {
+            background: radial-gradient(ellipse at 30% 30%, #666 0%, #000 50%),
+                        radial-gradient(ellipse at 70% 70%, #555 0%, #000 50%),
+                        radial-gradient(ellipse at 50% 50%, #444 0%, #000 60%);
+            min-height: 100vh;
+            padding: 120px 2rem 4rem;
+            display: none;
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .team-title {
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .team-members {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .team-member-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 10px;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-member-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(196, 156, 77, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .team-member-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(196, 156, 77, 0.3);
+        }
+
+        .team-member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #c49c4d;
+            flex-shrink: 0;
+        }
+
+        .team-member-info {
+            flex: 1;
+        }
+
+        .team-member-name {
+            color: #c49c4d;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .team-member-title {
+            color: #b0b0b0;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .team-member-bio {
+            color: #b0b0b0;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .team-member-bio p {
+            margin-bottom: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .team-title {
+                font-size: 2rem;
+            }
+
+            .team-member-card {
+                padding: 2rem;
+            }
+
+            .team-member-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .team-member-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .team-member-name {
+                font-size: 1.8rem;
+            }
+
+            .team-member-title {
+                font-size: 1rem;
+            }
+
+            .team-member-bio {
+                font-size: 1rem;
+            }
+        }
+
+        .careers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .careers-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .careers-title {
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .careers-subtitle {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .careers-intro {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .careers-intro p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .careers-opportunities {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .opportunity-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 10px;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .opportunity-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(196, 156, 77, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .opportunity-card h3 {
+            color: #c49c4d;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .opportunity-card p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 900px) {
+            .careers-opportunities {
+                grid-template-columns: 1fr;
+            }
+
+            .careers-title {
+                font-size: 2rem;
+            }
+
+            .careers-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .opportunity-card {
+                padding: 2rem;
+            }
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-header-subtitle {
+            color: #b0b0b0;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-header-title {
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .contact-form-section h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-form-section p {
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #888;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #c49c4d 0%, #a0802d 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #d4af37 0%, #b0903d 100%);
+            transform: translateY(-2px);
+        }
+
+        .contact-info-section h3 {
+            color: #c49c4d;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .office-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .office-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(192, 192, 192, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #b0b0b0;
+            transition: all 0.3s;
+        }
+
+        .office-tab.active {
+            background: #c49c4d;
+            border-color: #c49c4d;
+            color: white;
+        }
+
+        .office-info {
+            display: none;
+        }
+
+        .office-info.active {
+            display: block;
+        }
+
+        .office-details {
+            margin-bottom: 2rem;
+        }
+
+        .office-details p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .office-details strong {
+            color: white;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #b0b0b0;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-header-title {
+                font-size: 2rem;
+            }
+
+            .contact-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .office-tabs {
+                flex-direction: column;
+            }
+
+            .office-tab {
+                text-align: center;
+            }
+        }
+
+        .services-page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .services-page-title {
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .services-page-subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .service-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+
+        .service-detail-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .service-detail-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(196, 156, 77, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .service-detail-card h3 {
+            color: #c49c4d;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-detail-card p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .footer {
+            background: #000;
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo-section img {
+            height: 50px;
+            width: auto;
+        }
+
+        .footer-brand-text h3 {
+            background: linear-gradient(180deg, #f0f0f0 0%, #c0c0c0 50%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-brand-text p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-contact-item {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .footer-contact-item:hover {
+            color: #c49c4d;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            color: #b0b0b0;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            color: #c49c4d;
+        }
+
+        .footer-column h4 {
+            color: #c49c4d;
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #c49c4d;
+        }
+
+        .footer-careers {
+            background: rgba(196, 156, 77, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(196, 156, 77, 0.2);
+        }
+
+        .footer-careers h4 {
+            color: #c49c4d;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-careers p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .careers-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: #c49c4d;
+            border: 1px solid #c49c4d;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .careers-btn:hover {
+            background: rgba(196, 156, 77, 0.1);
+            border-color: #d4af37;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            color: #808080;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid, .services-grid, .service-details-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-headline { font-size: 1.5rem; }
+            .hero-subheadline { font-size: 0.9rem; }
+            .services-page-title { font-size: 2rem; }
+            .footer-top { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <img src="plf_logo.png" alt="Logo">
+                <div class="logo-text">
+                    <span class="logo-title">Pillix Law Firm</span>
+                    <span class="logo-subtitle">Strength & Support</span>
+                </div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#our-team">Our Team</a></li>
+                <li><a href="#our-services">Our Services</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="content">
+        <h1 class="hero-headline">Comprehensive Legal Services Across Corporate, Litigation, and Regulatory Matters</h1>
+        <p class="hero-subheadline">Pillix Law Firm is a Hyderabad-based, professionally managed law firm providing a full range of legal services in corporate law, trademark matters, civil and criminal litigation, government relations, and policy advisory, serving clients across India and internationally.</p>
+        <div class="cta-buttons">
+            <a href="#contact-us" class="cta-button cta-primary">Book an Online Consultation</a>
+            <a href="#our-services" class="cta-button cta-secondary">Explore Our Areas of Practice</a>
+        </div>
+    </div>
+
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <h2 class="section-heading">About Us</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>Who We Are</h3>
+                    <p>Pillix Law Firm is a Hyderabad-based, professionally managed law firm providing a comprehensive range of legal services to a diverse client base. The firm advises clients across corporate law, trademark matters, civil and criminal litigation, government relations, and policy advisory, serving clients across India and internationally.</p>
+                </div>
+                <div class="about-card">
+                    <h3>What We Do</h3>
+                    <p>The firm offers legal advisory and representation in both transactional and litigation matters. By working closely with experienced domain professionals and applying practical legal strategies, Pillix Law Firm delivers solutions focused on minimizing cost while maximizing value for its clients.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Our Expertise</h3>
+                    <p>The firm's lawyers bring decades of experience in handling complex legal matters, including multi-jurisdictional issues across various legal systems. Pillix Law Firm is particularly recognized for its work in compliance and anti-corruption laws, assisting clients with regulatory adherence, policy framework development, and responses to investigations.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Our Approach</h3>
+                    <p>Pillix Law Firm combines legal precision with a strong understanding of business and regulatory environments. The firm emphasizes ethical practice, transparency, and context-driven legal advice to support informed decision-making for its clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-page" id="our-services">
+        <div class="services-page-container">
+            <div class="services-page-header" id="litigation">
+                <h1 class="services-page-title">Litigation & Dispute Resolution</h1>
+                <p class="services-page-subtitle">Comprehensive legal representation across civil, criminal, and family matters</p>
+            </div>
+            <div class="service-details-grid">
+                <div class="service-detail-card">
+                    <h3>All Civil Cases</h3>
+                    <p>Representation in a wide range of civil disputes, including contractual, property, and personal matters, before appropriate courts and judicial forums.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>All Criminal Cases</h3>
+                    <p>Legal representation in criminal proceedings, including defense and prosecution matters, in accordance with applicable laws and procedures.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Family Matters</h3>
+                    <p>Advisory and representation in family-related legal issues, including matrimonial disputes and related proceedings.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Claims and Compensations</h3>
+                    <p>Assistance in pursuing and defending claims for compensation arising out of accidents, contractual breaches, or statutory entitlements.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Public Interest Litigation</h3>
+                    <p>Legal representation in matters filed in the public interest, addressing issues of wider social and legal importance.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Negotiations and Compromises</h3>
+                    <p>Support in dispute resolution through negotiations, settlements, and amicable compromises, with the objective of minimizing prolonged litigation.</p>
+                </div>
+            </div>
+
+            <div class="services-page-header" style="margin-top: 6rem;" id="corporate">
+                <h1 class="services-page-title">Corporate & Commercial Law</h1>
+                <p class="services-page-subtitle">Legal support for businesses on corporate governance, compliance, and commercial matters</p>
+            </div>
+            <div class="service-details-grid">
+                <div class="service-detail-card">
+                    <h3>Company Matters</h3>
+                    <p>Advisory and legal support relating to company incorporation, governance, compliance, and ongoing corporate obligations.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Corporate Advisory</h3>
+                    <p>Legal advisory services to businesses on commercial transactions, regulatory compliance, and risk management within applicable legal frameworks.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Service Matters</h3>
+                    <p>Representation and advisory in matters relating to employment and service laws, including disputes arising from service conditions and disciplinary proceedings.</p>
+                </div>
+            </div>
+
+            <div class="services-page-header" style="margin-top: 6rem;" id="regulatory">
+                <h1 class="services-page-title">Regulatory & Government Advisory</h1>
+                <p class="services-page-subtitle">Advisory and liaison services relating to central and state laws, administrative matters, and government departments</p>
+            </div>
+            <div class="service-details-grid">
+                <div class="service-detail-card">
+                    <h3>Land Revenue Cases</h3>
+                    <p>Advisory and representation in matters relating to land revenue laws, records, and disputes before appropriate authorities and forums.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Customs and Central Excise Cases</h3>
+                    <p>Legal assistance in matters involving customs, central excise, and related fiscal regulations, including adjudication and appellate proceedings.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Central & State Laws and Administrative Matters</h3>
+                    <p>Advisory and representation in matters arising under central and state legislation, including administrative and regulatory proceedings.</p>
+                </div>
+                <div class="service-detail-card">
+                    <h3>Liaison with State and Central Government Departments</h3>
+                    <p>Legal support and coordination in matters requiring interaction with government departments, statutory authorities, and regulatory bodies.</p>
+                </div>
+            </div>
+
+            <div class="services-page-header" style="margin-top: 6rem;" id="trademark">
+                <h1 class="services-page-title">Trademark & Intellectual Property</h1>
+                <p class="services-page-subtitle">Legal assistance in trademark registration, protection, and enforcement</p>
+            </div>
+            <div class="service-details-grid">
+                <div class="service-detail-card">
+                    <h3>Trademark Matters</h3>
+                    <p>Legal assistance in matters relating to trademark registration, protection, enforcement, and dispute resolution, in accordance with applicable intellectual property laws.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-page" id="contact-us">
+        <div class="contact-container">
+            <div class="contact-header">
+                <p class="contact-header-subtitle">You can</p>
+                <h1 class="contact-header-title">Contact Us</h1>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-form-section">
+                    <h3>Enter Your Details</h3>
+                    <p>We're here to help & answer any questions or queries you might have.</p>
+
+                    <form>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Please enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="Please enter your Email address">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="Please enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="Please enter your message"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                </div>
+
+                <div class="contact-info-section">
+                    <div class="office-tabs">
+                        <button class="office-tab active" data-office="hyderabad">Hyderabad</button>
+                        <button class="office-tab" data-office="vijayawada">Vijayawada</button>
+                        <button class="office-tab" data-office="delhi">Delhi</button>
+                    </div>
+
+                    <div class="office-info active" id="hyderabad">
+                        <h3>Head Office</h3>
+                        <div class="office-details">
+                            <p><strong>Hyderabad</strong></p>
+                            <p>Pranava One HSEL, #6-5-654, Unit-2, 15th Floor,<br>
+                            Commercial Block, Punjagutta Rd, Raj Bhavan Quarters Colony,<br>
+                            Somajiguda, Hyderabad, Telangana - 500082</p>
+                            <p><strong>Mobile:</strong> +91 9866061616</p>
+                            <p><strong>Off. Mobile:</strong> +91 7993337616</p>
+                            <p><strong>Off. Tel. / Fax:</strong> 040 - 40066161</p>
+                            <p><strong>Court Fax:</strong> 040 - 24412019</p>
+                            <p><strong>Email:</strong> contact@pillixlawfirm.com<br>kasipokuru@gmail.com</p>
+                        </div>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.698!2d78.4573!3d17.4196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDI1JzEwLjYiTiA3OMKwMjcnMjYuMyJF!5e0!3m2!1sen!2sin!4v1735654500000!5m2!1sen!2sin&q=CF94%2BRW+Somajiguda+Hyderabad" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="office-info" id="vijayawada">
+                        <h3>Vijayawada Office</h3>
+                        <div class="office-details">
+                            <p><strong>Vijayawada</strong></p>
+                            <p>Pillix Law Firm Doyen Chambers, 3rd Floor,<br>
+                            D.No:54-20/9-9B, Timmarusu Street, Srinagar Colony,<br>
+                            Bharathi Nagar, Vijayawada - 520008, A.P</p>
+                        </div>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.496!2d80.6648!3d16.5065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDMwJzIzLjQiTiA4MMKwMzknNTMuMyJF!5e0!3m2!1sen!2sin!4v1735654500001!5m2!1sen!2sin&q=GM47%2BMX+Vijayawada+Andhra+Pradesh" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="office-info" id="delhi">
+                        <h3>Delhi Office</h3>
+                        <div class="office-details">
+                            <p><strong>Delhi</strong></p>
+                            <p>108, Tower No.12, Supreme Enclave,<br>
+                            Mayur Vihar, Phase -1, Delhi - 110 091</p>
+                            <p><strong>Mobile:</strong> +91 9818113824</p>
+                        </div>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.9883847515!2d77.29450071487568!3d28.609647982416485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4f3b3b3b3b3%3A0x3b3b3b3b3b3b3b3b!2sSupreme%20Enclave!5e0!3m2!1sen!2sin!4v1735654400002!5m2!1sen!2sin&q=Tower+12+Supreme+Enclave+Mayur+Vihar+Phase+1+Delhi+110091" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="careers-page" id="careers">
+        <div class="careers-container">
+            <div class="careers-header">
+                <h1 class="careers-title">Careers at Pillix Law Firm</h1>
+                <p class="careers-subtitle">Build your career in a professionally managed legal environment</p>
+            </div>
+
+            <div class="careers-intro">
+                <p>Pillix Law Firm offers opportunities for individuals who are interested in developing their legal careers through practical exposure, analytical work, and result-oriented research. The firm encourages professional growth in a culture of mutual respect, ethical practice, and collaboration.</p>
+            </div>
+
+            <div class="careers-opportunities">
+                <div class="opportunity-card">
+                    <h3>Internships</h3>
+                    <p>Pillix Law Firm welcomes law students who are interested in gaining practical exposure to legal research, drafting, and case preparation across various practice areas. Internships provide an opportunity to understand the firm's working environment while allowing the firm to assess potential long-term associations.</p>
+                    <p style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(192, 192, 192, 0.2);"><strong>To apply:</strong><br>Email your application to <a href="mailto:contact@pillixlawfirm.com" style="color: #c49c4d; text-decoration: none;">✉️ contact@pillixlawfirm.com</a></p>
+                </div>
+
+                <div class="opportunity-card">
+                    <h3>Professionals</h3>
+                    <p>The firm invites applications from graduates and experienced legal professionals seeking retainerships or professional engagements. Professionals at Pillix Law Firm are provided opportunities to work on advisory and litigation matters, contribute to complex legal assignments, and grow within a structured and transparent professional framework.</p>
+                    <p style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(192, 192, 192, 0.2);"><strong>To apply:</strong><br>Email your application to <a href="mailto:contact@pillixlawfirm.com" style="color: #c49c4d; text-decoration: none;">✉️ contact@pillixlawfirm.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-page" id="our-team">
+        <div class="team-container">
+            <div class="team-header">
+                <h1 class="team-title">Our Team</h1>
+            </div>
+
+            <div class="team-members">
+                <div class="team-member-card">
+                    <div class="team-member-header">
+                        <img src="kasi_dp.jpeg" alt="Pokuru Kasi Nageshwararao" class="team-member-image">
+                        <div class="team-member-info">
+                            <h2 class="team-member-name">Pokuru Kasi Nageshwararao</h2>
+                            <p class="team-member-title">Advocate, High Court at Hyderabad</p>
+                        </div>
+                    </div>
+                    <div class="team-member-bio">
+                        <p>With over two decades of association with Pillix Law Firm, Pokuru Kasi Nageshwararao brings extensive experience in legal strategy and courtroom advocacy. His practice is focused on representing clients across complex legal matters with a strong emphasis on thorough case preparation and principled advocacy.</p>
+                        <p>Aligned with the firm's commitment to integrity and professional excellence, his approach is centered on understanding the specific circumstances of each matter and developing well-considered legal strategies. Through consistent representation before judicial forums, he is dedicated to safeguarding clients' rights and ensuring their concerns are effectively presented within the legal process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="services-container">
+            <h2 class="services-title">Our Services</h2>
+            <p class="services-intro">We provide legal advisory and representation across key areas of law, serving individuals, businesses, and institutions.</p>
+            <div class="services-grid">
+                <div class="service-card" data-service="litigation">
+                    <h3>Litigation & Dispute Resolution</h3>
+                    <p>Representation in civil and criminal cases before Indian courts and judicial forums.</p>
+                </div>
+                <div class="service-card" data-service="corporate">
+                    <h3>Corporate & Commercial Law</h3>
+                    <p>Advisory on company matters, corporate compliance, and commercial legal issues.</p>
+                </div>
+                <div class="service-card" data-service="regulatory">
+                    <h3>Regulatory & Government Advisory</h3>
+                    <p>Advisory and liaison services relating to central and state laws, administrative matters, and government departments.</p>
+                </div>
+                <div class="service-card" data-service="trademark">
+                    <h3>Trademark & Intellectual Property</h3>
+                    <p>Assistance with trademark registration, protection, and enforcement.</p>
+                </div>
+            </div>
+            <a href="#our-services" class="view-all-btn">View All Services</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo-section">
+                        <img src="plf_logo.png" alt="Pillix Law Firm Logo">
+                        <div class="footer-brand-text">
+                            <h3>PILLIX LAW FIRM</h3>
+                            <p>Strength & Support</p>
+                        </div>
+                    </div>
+                    <div class="footer-contact">
+                        <p style="color: #b0b0b0; margin-bottom: 0.5rem;">Hyderabad, India</p>
+                        <a href="tel:+917993337616" class="footer-contact-item">📞 Off. Mobile: +91 7993337616</a>
+                        <a href="mailto:contact@pillixlawfirm.com" class="footer-contact-item">✉️ contact@pillixlawfirm.com</a>
+                    </div>
+                    <div>
+                        <p style="color: #b0b0b0; font-size: 0.9rem; margin-bottom: 0.5rem;">Follow Us</p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link">in</a>
+                            <a href="#" class="social-link">𝕏</a>
+                            <a href="#" class="social-link">📷</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Information</h4>
+                    <div class="footer-links">
+                        <a href="#about">About Us</a>
+                        <a href="#our-services">Areas of Practice</a>
+                        <a href="#our-team">Our People</a>
+                        <a href="#contact-us">Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Our Services</h4>
+                    <div class="footer-links">
+                        <a href="#corporate">Corporate & Commercial Law</a>
+                        <a href="#litigation">Litigation & Dispute Resolution</a>
+                        <a href="#trademark">Trademark & Intellectual Property</a>
+                        <a href="#regulatory">Regulatory & Government Advisory</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Our Offices</h4>
+                    <div class="footer-links">
+                        <a href="#hyderabad-office">Hyderabad</a>
+                        <a href="#delhi-office">Delhi</a>
+                        <a href="#vijayawada-office">Vijayawada</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-careers">
+                <h4>Careers</h4>
+                <p>We are always interested in connecting with talented legal professionals and law students. Explore opportunities to grow with a professionally managed law firm.</p>
+                <a href="#careers" class="careers-btn">View Careers</a>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Pillix Law Firm. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const content = document.querySelector('.content');
+        const aboutSection = document.querySelector('.about-section');
+        const servicesPreview = document.querySelector('.services-section');
+        const servicesPage = document.querySelector('.services-page');
+        const contactPage = document.querySelector('.contact-page');
+        const careersPage = document.querySelector('.careers-page');
+        const teamPage = document.querySelector('.team-page');
+        const footer = document.querySelector('.footer');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        function showHomePage() {
+            content.style.display = 'flex';
+            aboutSection.style.display = 'block';
+            servicesPreview.style.display = 'block';
+            servicesPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            careersPage.style.display = 'none';
+            teamPage.style.display = 'none';
+            footer.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showServicesPage() {
+            content.style.display = 'none';
+            aboutSection.style.display = 'none';
+            servicesPreview.style.display = 'none';
+            servicesPage.style.display = 'block';
+            contactPage.style.display = 'none';
+            careersPage.style.display = 'none';
+            teamPage.style.display = 'none';
+            footer.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showContactPage() {
+            content.style.display = 'none';
+            aboutSection.style.display = 'none';
+            servicesPreview.style.display = 'none';
+            servicesPage.style.display = 'none';
+            contactPage.style.display = 'block';
+            careersPage.style.display = 'none';
+            teamPage.style.display = 'none';
+            footer.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showCareersPage() {
+            content.style.display = 'none';
+            aboutSection.style.display = 'none';
+            servicesPreview.style.display = 'none';
+            servicesPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            careersPage.style.display = 'block';
+            teamPage.style.display = 'none';
+            footer.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showTeamPage() {
+            content.style.display = 'none';
+            aboutSection.style.display = 'none';
+            servicesPreview.style.display = 'none';
+            servicesPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            careersPage.style.display = 'none';
+            teamPage.style.display = 'block';
+            footer.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showServicesSection(sectionId) {
+            content.style.display = 'none';
+            aboutSection.style.display = 'none';
+            servicesPreview.style.display = 'none';
+            servicesPage.style.display = 'block';
+            footer.style.display = 'block';
+            
+            setTimeout(() => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+
+        document.querySelectorAll('a[href="#home"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showHomePage();
+            });
+        });
+
+        document.querySelectorAll('a[href="#our-services"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showServicesPage();
+            });
+        });
+
+        document.querySelectorAll('a[href="#contact-us"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showContactPage();
+            });
+        });
+
+        document.querySelectorAll('a[href="#careers"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showCareersPage();
+            });
+        });
+
+        document.querySelectorAll('a[href="#our-team"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showTeamPage();
+            });
+        });
+
+        document.querySelectorAll('a[href="#about"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showHomePage();
+                setTimeout(() => aboutSection.scrollIntoView({ behavior: 'smooth' }), 100);
+            });
+        });
+
+        // Service card click handlers
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const service = card.getAttribute('data-service');
+                if (service) {
+                    showServicesSection(service);
+                }
+            });
+        });
+
+        // Footer service links
+        document.querySelectorAll('a[href="#litigation"], a[href="#corporate"], a[href="#trademark"], a[href="#regulatory"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.getAttribute('href').substring(1);
+                showServicesSection(sectionId);
+            });
+        });
+
+        // Footer office links
+        document.querySelectorAll('a[href="#hyderabad-office"], a[href="#delhi-office"], a[href="#vijayawada-office"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showContactPage();
+                
+                // Determine which office tab to activate
+                const officeMap = {
+                    'hyderabad-office': 'hyderabad',
+                    'delhi-office': 'delhi',
+                    'vijayawada-office': 'vijayawada'
+                };
+                
+                const officeId = link.getAttribute('href').substring(1);
+                const office = officeMap[officeId];
+                
+                setTimeout(() => {
+                    // Remove active class from all tabs and info sections
+                    document.querySelectorAll('.office-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.office-info').forEach(info => info.classList.remove('active'));
+                    
+                    // Add active class to selected tab and info
+                    document.querySelector(`[data-office="${office}"]`).classList.add('active');
+                    document.getElementById(office).classList.add('active');
+                }, 100);
+            });
+        });
+
+        // Office tab switching
+        document.querySelectorAll('.office-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const office = tab.getAttribute('data-office');
+                
+                // Remove active class from all tabs and info sections
+                document.querySelectorAll('.office-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.office-info').forEach(info => info.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding info
+                tab.classList.add('active');
+                document.getElementById(office).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
